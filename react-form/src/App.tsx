@@ -1,36 +1,43 @@
 import { useState } from "react"
 import ExpenseList from "./components/expense-tracker/ExpenseList"
+import ExpenseFilter from "./components/expense-tracker/ExpenseFilter";
 
 const App = () => {
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [expenses, setExpenses] = useState([
     {
       id: 1,
-      description: 'Groceries',
+      description: 'TV',
       amount: 30,
-      category: 'Util',
+      category: 'Entertainment',
     },
     {
       id: 2,
-      description: 'Groceries',
+      description: 'Entertainment',
       amount: 50,
-      category: 'Util',
+      category: 'Entertainment',
     },
     {
       id: 3,
       description: 'Groceries',
       amount: 60,
-      category: 'Util',
+      category: 'Groceries',
     },
     {
       id: 4,
-      description: 'Groceries',
+      description: 'Utilities',
       amount: 130,
-      category: 'Util',
+      category: 'Utilities',
     },
     ]);
+
+    const visibleExpenses = selectedCategory ? expenses.filter(e=>e.category == selectedCategory) : expenses;
   return (
     <div>
-      <ExpenseList expenses={expenses} onDelete={(id) => setExpenses(expenses.filter(e => e.id !== id))}/>
+      <div className="mb-3">
+      <ExpenseFilter onSelectCategory={category => setSelectedCategory(category)}/>
+      </div>
+      <ExpenseList expenses={visibleExpenses} onDelete={(id) => setExpenses(expenses.filter(e => e.id !== id))}/>
     </div>
   )
 }
