@@ -3,25 +3,25 @@ const expenses = [
   {
   id: 1,
   description: 'Groceries',
-  amount: 10,
+  amount: 30,
   category: 'Util',
 },
 {
   id: 2,
   description: 'Groceries',
-  amount: 10,
+  amount: 50,
   category: 'Util',
 },
 {
   id: 3,
   description: 'Groceries',
-  amount: 10,
+  amount: 60,
   category: 'Util',
 },
 {
   id: 4,
   description: 'Groceries',
-  amount: 10,
+  amount: 130,
   category: 'Util',
 }
 ]
