@@ -4,7 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import categories from "./middleware/categories";
 
 const schema = z.object({
-    description: z.string().min(3).max(50),
+    description: z
+        .string()
+        .min(3, { message: "Description should be at least 3 characters." })
+        .max(50),
     amount: z.number().min(0.01).max(100_000),
     category: z.enum(categories),
 });
@@ -42,7 +45,7 @@ const ExpenseForm = () => {
                     Amount
                 </label>
                 <input
-                    {...register("amount")}
+                    {...register("amount", { valueAsNumber: true })}
                     id="amount"
                     type="number"
                     className="form-control"
@@ -61,16 +64,16 @@ const ExpenseForm = () => {
                     id="category"
                     className="form-select"
                 >
-                    {errors.category && (
-                        <p className="text-danger">{errors.category.message}</p>
-                    )}
-                    <option value="">Choose...</option>
+                    <option value=""></option>
                     {categories.map((category) => (
                         <option key={category} value={category}>
                             {category}
                         </option>
                     ))}
                 </select>
+                {errors.category && (
+                    <p className="text-danger">{errors.category.message}</p>
+                )}
             </div>
             {/* button.btn.btn-primary */}
             <button className="btn btn-primary">Submit</button>

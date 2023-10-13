@@ -2,6 +2,7 @@ import { useState } from "react";
 import ExpenseList from "./components/expense-tracker/ExpenseList";
 import ExpenseFilter from "./components/expense-tracker/ExpenseFilter";
 import ExpenseForm from "./components/expense-tracker/ExpenseForm";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import categories from "./components/expense-tracker/middleware/categories";
 
 const App = () => {
