@@ -8,22 +8,39 @@ const schema = z.object({
         .string()
         .min(3, { message: "Description should be at least 3 characters." })
         .max(50),
-    amount: z.number().min(0.01).max(100_000),
-    category: z.enum(categories),
+    amount: z
+        .number({ invalid_type_error: "Amount is required." })
+        .min(0.01)
+        .max(100_000),
+    category: z.enum(categories, {
+        errorMap: () => ({
+            message: "Category is required.",
+        }),
+    }),
 });
 
 type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseForm = () => {
+interface Props {
+    onSubmit: (data: ExpenseFormData) => void;
+}
+
+const ExpenseForm = ({ onSubmit }: Props) => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<ExpenseFormData>({
         resolver: zodResolver(schema),
     });
     return (
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <form
+            onSubmit={handleSubmit((data) => {
+                onSubmit(data);
+                reset();
+            })}
+        >
             {/* .mb-3>label.form-label+input.form-control */}
             <div className="md-3">
                 <label htmlFor="description" className="form-label">
